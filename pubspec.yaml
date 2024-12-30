@@ -36,6 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   lottie: ^3.2.0
+  animated_text_kit: ^4.2.2
+  page_transition: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -77,15 +79,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: primary
+       fonts:
+         - asset: assets/fonts/Exo-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+     - family: secondary
+       fonts:
+         - asset: assets/fonts/Merienda-Regular.ttf
+
+     - family: third
+       fonts:
+         - asset: assets/fonts/BerkshireSwash-Regular.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
