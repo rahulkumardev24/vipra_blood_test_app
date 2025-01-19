@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 
 import '../../domain/colors.dart';
@@ -11,6 +12,17 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+
+  /// Function to open the dialer
+  void openDialer(String phoneNumber) async {
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    } else {
+      throw 'Could not launch $phoneUri';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +58,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
             trailing: ElevatedButton(
                 onPressed: () {
+                  openDialer('+917970989057');
                   
                 },
                 style: ElevatedButton.styleFrom(
