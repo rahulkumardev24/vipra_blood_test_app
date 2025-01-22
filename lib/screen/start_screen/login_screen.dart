@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
-import 'package:vipra_lap/screen/start_screen/signup_screen.dart';
 import 'package:vipra_lap/widgets/my_filled_button.dart';
 import 'package:vipra_lap/widgets/my_icon_text_button.dart';
 import 'package:vipra_lap/widgets/my_outline_button.dart';
@@ -34,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 "assets/icons/appicon.png",
                 height: 100,
               ),
+              const SizedBox(height: 12,),
               RichText(
                   text: TextSpan(
                       text: "Welcome",
