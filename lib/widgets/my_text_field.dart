@@ -14,7 +14,11 @@ class MyTextField extends StatefulWidget {
   Color? filledColor;
   double? borderRadius;
   Color? borderColor;
+  Color? textColor;
   VoidCallback? suffixIconOnPress;
+  FontWeight textWeight;
+  Color? cursorColor;
+  Color sufAndFixIconColor;
 
   MyTextField(
       {super.key,
@@ -27,7 +31,11 @@ class MyTextField extends StatefulWidget {
       this.filledColor,
       this.borderRadius = 16,
       this.borderColor = AppColors.primaryColor,
-      this.suffixIconOnPress});
+      this.textColor = Colors.white,
+      this.textWeight = FontWeight.normal,
+      this.suffixIconOnPress,
+      this.sufAndFixIconColor = Colors.white54,
+      this.cursorColor = Colors.white60});
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -37,19 +45,25 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      cursorColor: widget.cursorColor,
       controller: widget.textEditingController,
+      style: myTextStyle15(
+          fontColor: widget.textColor!, fontWeight: widget.textWeight),
       decoration: InputDecoration(
           hintText: widget.hintText ?? null,
           filled: widget.filled ?? false,
           fillColor: widget.filledColor ?? null,
           hintStyle: myTextStyle18(),
-          label: widget.labelText != null ? Text(widget.labelText!) : null ,
+          label: widget.labelText != null ? Text(widget.labelText!) : null,
           prefixIcon: widget.prefixIcon != null
-              ? Icon(widget.prefixIcon ?? null)
+              ? Icon(widget.prefixIcon ?? null , color: widget.sufAndFixIconColor,)
               : null,
           suffixIcon: IconButton(
               onPressed: widget.suffixIconOnPress,
-              icon: Icon(widget.suffixIcon ?? null)),
+              icon: Icon(
+                widget.suffixIcon ?? null,
+                color: widget.sufAndFixIconColor,
+              )),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius!),
               borderSide: BorderSide(width: 2, color: widget.borderColor!)),

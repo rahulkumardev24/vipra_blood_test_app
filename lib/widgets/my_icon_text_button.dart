@@ -3,7 +3,7 @@ import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 
 import '../domain/colors.dart';
 
-class MyFilledButton extends StatefulWidget {
+class MyIconTextButton extends StatefulWidget {
   String btnText;
   FontWeight? textWeight;
   Color? btnBackground;
@@ -11,22 +11,23 @@ class MyFilledButton extends StatefulWidget {
   double? btnTextSize;
   VoidCallback onPressed;
   double? borderRadius;
-
-  MyFilledButton(
+  String iconPath;
+  MyIconTextButton(
       {super.key,
-      this.btnBackground = AppColors.primaryColor,
+      this.btnBackground = Colors.white,
       required this.btnText,
       required this.onPressed,
-      this.btnTextColor = Colors.white,
+      this.btnTextColor = Colors.black,
       this.textWeight = FontWeight.normal,
       this.btnTextSize = 18,
-      this.borderRadius = 16});
+      this.borderRadius = 16,
+      required this.iconPath});
 
   @override
-  State<MyFilledButton> createState() => _MyFilledButtonState();
+  State<MyIconTextButton> createState() => _MyFilledButtonState();
 }
 
-class _MyFilledButtonState extends State<MyFilledButton> {
+class _MyFilledButtonState extends State<MyIconTextButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -35,9 +36,21 @@ class _MyFilledButtonState extends State<MyFilledButton> {
             backgroundColor: widget.btnBackground,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius!))),
-        child: Text(
-          widget.btnText,
-          style: myTextStyle24(fontColor: widget.btnTextColor! , fontWeight: widget.textWeight!),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              widget.iconPath,
+              height: 30,
+            ),
+            const SizedBox(width: 8,),
+            Text(
+              widget.btnText,
+              style: myTextStyle18(
+                  fontWeight: widget.textWeight!,
+                  fontColor: widget.btnTextColor!),
+            ),
+          ],
         ));
   }
 }

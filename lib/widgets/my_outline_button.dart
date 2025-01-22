@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 
 import '../domain/colors.dart';
 
@@ -40,10 +41,7 @@ class _MyFilledButtonState extends State<MyOutlineButton> {
                 borderRadius: BorderRadius.circular(widget.borderRadius!))),
         child: Text(
           widget.btnText,
-          style: TextStyle(
-              fontWeight: widget.textWeight,
-              color: widget.btnTextColor,
-              fontSize: widget.btnTextSize),
+          style: myTextStyle18(fontColor: widget.btnTextColor! , fontWeight: widget.textWeight! ),
         ));
   }
 }
