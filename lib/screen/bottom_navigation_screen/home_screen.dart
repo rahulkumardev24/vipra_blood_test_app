@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             /// Categories Grid
             SizedBox(
-              height: mqData!.size.height * 0.35,
+              height: mqData!.size.height * 0.39,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GridView.builder(
