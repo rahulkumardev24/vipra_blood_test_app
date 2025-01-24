@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../domain/colors.dart';
 import '../../domain/utils/custom_text_style.dart';
@@ -18,6 +20,43 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+
+  /// Google Authentication
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+      if (user != null) {
+        print("Signed in as: ${user.displayName}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Signed in as: ${user.displayName}")),
+        );
+      }
+    } catch (error) {
+      print("Sign in failed: $error");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Sign in failed")),
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,7 +203,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     MyIconTextButton(
                       btnText: "Sign up with Google",
-                      onPressed: () {},
+                      onPressed: () {
+                        signInWithGoogle();
+                      },
                       btnTextColor: Colors.white,
                       btnBackground: AppColors.primaryLight.withOpacity(0.8),
                       textWeight: FontWeight.bold,
