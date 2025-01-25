@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vipra_lap/screen/dashboard_screen.dart';
 
 import '../../domain/colors.dart';
 import '../../domain/utils/custom_text_style.dart';
+import '../../service/auth_service.dart';
 import '../../widgets/my_filled_button.dart';
 import '../../widgets/my_icon_text_button.dart';
 import '../../widgets/my_outline_button.dart';
@@ -21,41 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-
-  /// Google Authentication
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
-
-      final User? user = userCredential.user;
-      if (user != null) {
-        print("Signed in as: ${user.displayName}");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Signed in as: ${user.displayName}")),
-        );
-      }
-    } catch (error) {
-      print("Sign in failed: $error");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Sign in failed")),
-      );
-    }
-  }
-
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -203,8 +172,19 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     MyIconTextButton(
                       btnText: "Sign up with Google",
-                      onPressed: () {
-                        signInWithGoogle();
+                      onPressed: () async {
+                        try {
+                          final user = await _authService.signInWithGoogle();
+                          if (user != null) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardScreen()));
+                          }
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("SignUp Failed : $error")));
+                        }
                       },
                       btnTextColor: Colors.white,
                       btnBackground: AppColors.primaryLight.withOpacity(0.8),

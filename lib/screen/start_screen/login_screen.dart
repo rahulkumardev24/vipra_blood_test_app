@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
+import 'package:vipra_lap/screen/dashboard_screen.dart';
+import 'package:vipra_lap/service/auth_service.dart';
 import 'package:vipra_lap/widgets/my_filled_button.dart';
 import 'package:vipra_lap/widgets/my_icon_text_button.dart';
 import 'package:vipra_lap/widgets/my_outline_button.dart';
@@ -17,6 +19,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 "assets/icons/appicon.png",
                 height: 100,
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               RichText(
                   text: TextSpan(
                       text: "Welcome",
@@ -42,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextSpan(
                         text: " Back",
                         style: myTextStyle48(
-                            fontColor: Colors.white, fontWeight: FontWeight.bold))
+                            fontColor: Colors.white,
+                            fontWeight: FontWeight.bold))
                   ])),
               Text(
                 "Track tests, stay healthy",
@@ -77,7 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           borderColor: const Color(0xcd083f70),
                           filledColor: const Color(0xcd083f70),
-
                           borderRadius: 8,
                           prefixIcon: Icons.email_outlined,
                         )
@@ -86,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-          
+
                     /// Password
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -119,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-          
+
                     /// Forgot
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -139,7 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             btnText: "Log In",
                             btnTextColor: Colors.black,
                             textWeight: FontWeight.bold,
-                            btnBackground: AppColors.primaryLight.withOpacity(1),
+                            btnBackground:
+                                AppColors.primaryLight.withOpacity(1),
                             borderRadius: 8,
                             onPressed: () {})),
                     const SizedBox(
@@ -147,7 +155,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     MyIconTextButton(
                       btnText: "Log in with Google",
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          final user = _authService.signInWithGoogle();
+                          if (user != null) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DashboardScreen()));
+                          }
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Login Failed : $error")));
+                        }
+                      },
                       btnTextColor: Colors.white,
                       btnBackground: AppColors.primaryLight.withOpacity(0.8),
                       textWeight: FontWeight.bold,
@@ -169,12 +191,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: MyOutlineButton(
                           btnText: "Sign Up",
                           onPressed: () {},
-                          btnBackground: AppColors.primaryColor.withOpacity(0.9),
+                          btnBackground:
+                              AppColors.primaryColor.withOpacity(0.9),
                           borderRadius: 8,
                           btnTextColor: Colors.white70,
                           textWeight: FontWeight.bold,
-          
-          
                         ))
                   ],
                 ),
