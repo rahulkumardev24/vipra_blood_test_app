@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
+import 'package:vipra_lap/screen/start_screen/signup_screen.dart';
 import 'package:vipra_lap/service/auth_service.dart';
 import 'package:vipra_lap/widgets/my_filled_button.dart';
 import 'package:vipra_lap/widgets/my_icon_text_button.dart';
@@ -157,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       btnText: "Log in with Google",
                       onPressed: () async {
                         try {
-                          final user = _authService.signInWithGoogle();
+                          final user = await _authService.signInWithGoogle();
                           if (user != null) {
                             Navigator.pushReplacement(
                                 context,
@@ -190,7 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         child: MyOutlineButton(
                           btnText: "Sign Up",
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
+                          },
                           btnBackground:
                               AppColors.primaryColor.withOpacity(0.9),
                           borderRadius: 8,

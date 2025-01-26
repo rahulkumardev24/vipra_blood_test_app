@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "817777852918",
+    "project_id": "vipralap",
+    "storage_bucket": "vipralap.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817777852918:android:4e4cd056f85d21564047d7",
+        "android_client_info": {
+          "package_name": "com.example.vipra_lap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYP_9IVLeQ28v3nAWKzSt3tIRZKHembBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
