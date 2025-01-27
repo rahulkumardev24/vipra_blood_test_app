@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:vipra_lap/domain/colors.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
+import 'package:vipra_lap/screen/order_test_screen.dart';
 import 'package:vipra_lap/widgets/banner_slider.dart';
 import 'package:vipra_lap/widgets/categories_card.dart';
 import 'package:vipra_lap/widgets/order_button.dart';
@@ -184,7 +185,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )),
                             OrderButton(
                               buttonText: 'Order a test',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OrderTestScreen()));
+                              },
                             )
                           ],
                         ),

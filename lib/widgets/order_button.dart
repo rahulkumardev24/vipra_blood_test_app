@@ -25,7 +25,7 @@ class _OrderButtonState extends State<OrderButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: widget.onTap,
         style: ElevatedButton.styleFrom(backgroundColor: widget.buttonColor),
         child: Text(
           widget.buttonText,
