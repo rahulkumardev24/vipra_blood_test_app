@@ -19,6 +19,7 @@ class MyTextField extends StatefulWidget {
   FontWeight textWeight;
   Color? cursorColor;
   Color sufAndFixIconColor;
+  Color? suffixIconColor ;
 
   MyTextField(
       {super.key,
@@ -35,7 +36,10 @@ class MyTextField extends StatefulWidget {
       this.textWeight = FontWeight.normal,
       this.suffixIconOnPress,
       this.sufAndFixIconColor = Colors.white54,
-      this.cursorColor = Colors.white60});
+      this.cursorColor = Colors.white60 ,
+        this.suffixIconColor = Colors.black54
+
+      });
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -62,7 +66,7 @@ class _MyTextFieldState extends State<MyTextField> {
               onPressed: widget.suffixIconOnPress,
               icon: Icon(
                 widget.suffixIcon ?? null,
-                color: widget.sufAndFixIconColor,
+                color: widget.suffixIconColor,
               )),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius!),

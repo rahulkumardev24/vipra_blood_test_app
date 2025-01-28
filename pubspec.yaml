@@ -43,12 +43,19 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   external_app_launcher: ^4.0.1
   url_launcher: ^6.3.1
+#  permission and location
+  permission_handler: ^11.3.1
+  geolocator: ^13.0.2
+  geocoding: ^3.0.0
+
 #  Date format
   intl: ^0.20.1
+#  Firebase
   firebase_core: ^3.10.1
   firebase_auth: ^5.4.1
   google_sign_in: ^6.2.2
   cloud_firestore: ^5.6.2
+
 
 
 dev_dependencies:
