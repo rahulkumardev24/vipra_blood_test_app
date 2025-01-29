@@ -115,7 +115,34 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 6,
       ),
       backgroundColor: Colors.white,
-      drawer: const Drawer(),
+
+      /// _________________________DRAWER__________________________///
+
+      drawer: Drawer(
+        child: ListView(
+          children: [
+
+            /// Drawer Header
+            DrawerHeader(
+                child: Column(
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(500),
+                    child: Image.asset(
+                      "assets/images/full body check up.png",
+                      height: 100,
+                      fit: BoxFit.cover,
+                    )),
+                Text("Username" ,
+                  style: myTextStyle24(fontWeight: FontWeight.bold),)
+              ],
+            )) ,
+            ListTile(
+              leading: Icon(Icons.logout , color: AppColors.primaryColor, ),)
+
+          ],
+        ),
+      ),
 
       ///_____________________BODY__________________________///
       body: SingleChildScrollView(

@@ -48,7 +48,7 @@ class _OrderTestScreenState extends State<OrderTestScreen> {
   void initState() {
     super.initState();
     _checkPermission();
-    _currentLocation();
+    // _currentLocation();
   }
 
   /// check permission
@@ -266,9 +266,11 @@ class _OrderTestScreenState extends State<OrderTestScreen> {
                   hintText: "Enter address",
                   labelText: "Address",
                   filledColor: AppColors.primaryLight.withOpacity(0.8),
-                  suffixIcon: Icons.map_rounded,
+                  suffixIcon: Icons.location_searching_rounded,
                   suffixIconColor: Colors.black54,
-                  suffixIconOnPress: () {},
+                  suffixIconOnPress: () {
+                    _currentLocation();
+                  },
                 ),
               ),
 
@@ -289,6 +291,8 @@ class _OrderTestScreenState extends State<OrderTestScreen> {
               const SizedBox(
                 height: 12,
               ),
+
+              /// __________________________________ BUTTON _______________________________________///
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
