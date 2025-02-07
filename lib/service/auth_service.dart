@@ -3,31 +3,30 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vipra_lap/screen/dashboard_screen.dart';
+import 'package:vipra_lap/screen/start_screen/login_screen.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
-class AuthService{
-
+class AuthService {
   /// Google Authentication
   Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        return null ;
+        return null;
       }
-
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
       final UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
 
       final User? user = userCredential.user;
       if (user != null) {
@@ -42,11 +41,70 @@ class AuthService{
           "lastSignIn": FieldValue.serverTimestamp()
         });
       }
-      return user ;
+      return user;
     } catch (error) {
       print("Sign in failed: $error");
     }
   }
 
+  /// Sign up with email and password
+  Future<User?> signUpWithEmail(String email, String password, String userName,
+      BuildContext context) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = userCredential.user;
+      if (user != null) {
+        await _firestore.collection("user").doc(user.uid).set({
+          "uid": user.uid,
+          "userName": userName,
+          "email": user.email ?? "",
+          "profilePicture": "",
+          "signInMethod": 'email',
+          "mobileNumber": "",
+          "lastSignIn": FieldValue.serverTimestamp()
+        });
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      }
+      return user;
+    } catch (error) {
+      print("Sign-up failed: $error");
+      return null;
+    }
+  }
 
+  /// Login with email and password
+  Future<User?> loginWithEmail(
+      String email, String password, BuildContext context) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = userCredential.user;
+      if (user != null) {
+        await _firestore.collection("user").doc(user.uid).set(
+            {"lastSignIn": FieldValue.serverTimestamp()},
+            SetOptions(merge: true));
+      }
+      return user;
+    } catch (error) {
+      print("Login failed: $error");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Plz SignIn first")));
+      return null;
+    }
+  }
+
+  /// Logout function
+  Future<void> signOut(BuildContext context) async {
+    await _auth.signOut();
+    await _googleSignIn.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+  }
 }

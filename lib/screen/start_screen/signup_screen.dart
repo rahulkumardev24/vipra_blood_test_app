@@ -166,7 +166,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             btnBackground:
                                 AppColors.primaryLight.withOpacity(1),
                             borderRadius: 8,
-                            onPressed: () {})),
+                            onPressed: () {
+                              _authService.signUpWithEmail(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim(),
+                                  userNameController.text , context);
+                            } , )),
                     const SizedBox(
                       height: 12,
                     ),

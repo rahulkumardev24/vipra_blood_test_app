@@ -151,7 +151,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             btnBackground:
                                 AppColors.primaryLight.withOpacity(1),
                             borderRadius: 8,
-                            onPressed: () {})),
+                            onPressed: () {
+                              _authService.loginWithEmail(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim(),
+                                  context);
+                            })),
                     const SizedBox(
                       height: 12,
                     ),
@@ -193,7 +198,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: MyOutlineButton(
                           btnText: "Sign Up",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupScreen()));
                           },
                           btnBackground:
                               AppColors.primaryColor.withOpacity(0.9),

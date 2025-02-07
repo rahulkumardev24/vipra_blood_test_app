@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vipra_lap/domain/colors.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 import 'package:vipra_lap/screen/order_test_screen.dart';
+import 'package:vipra_lap/service/auth_service.dart';
 import 'package:vipra_lap/widgets/banner_slider.dart';
 import 'package:vipra_lap/widgets/categories_card.dart';
 import 'package:vipra_lap/widgets/order_button.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final AuthService _authService = AuthService();
   /// Offers Image
   List<Widget> offers = [
     Padding(
@@ -138,7 +140,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             )) ,
             ListTile(
-              leading: Icon(Icons.logout , color: AppColors.primaryColor, ),)
+              onTap: (){
+                _authService.signOut(context);
+              },
+              leading: Icon(Icons.logout , color: AppColors.primaryColor, ) ,title: Text("Logout" , style: myTextStyle18(),),)
 
           ],
         ),
