@@ -5,6 +5,7 @@ import 'package:vipra_lap/screen/admin/admin_dashboard_screen.dart';
 import 'package:vipra_lap/screen/admin/admin_login_screen.dart';
 import 'package:vipra_lap/screen/bottom_navigation_screen/test_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
+import 'package:vipra_lap/screen/password_forget_screen.dart';
 import 'package:vipra_lap/screen/start_screen/login_screen.dart';
 import 'package:vipra_lap/screen/start_screen/signup_screen.dart';
 import 'package:vipra_lap/screen/start_screen/splash_screen.dart';
@@ -29,6 +30,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const SplashScreen());
+        home:  SplashScreen());
   }
 }

@@ -3,6 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
 import 'package:vipra_lap/screen/admin/admin_login_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
+import 'package:vipra_lap/screen/password_forget_screen.dart';
 import 'package:vipra_lap/screen/start_screen/signup_screen.dart';
 import 'package:vipra_lap/service/auth_service.dart';
 import 'package:vipra_lap/widgets/my_filled_button.dart';
@@ -155,9 +156,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "Forgot Password",
-                          style: myTextStyle18(fontColor: Colors.white60),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+                          },
+                          child: Text(
+                            "Forgot Password",
+                            style: myTextStyle18(fontColor: Colors.white60),
+                          ),
                         ),
                       ],
                     ),

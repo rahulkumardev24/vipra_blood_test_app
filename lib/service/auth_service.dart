@@ -137,12 +137,21 @@ class AuthService {
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
-  /// admin logout 
+  /// admin logout
   Future<void> adminLogout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminLoginScreen()));
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const AdminLoginScreen()));
     print("Admin logged out");
   }
 
-
+  /// password reset
+  Future<void> reSetPassword(String email, BuildContext context) async {
+    await _auth.sendPasswordResetEmail(email: email);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Password reset email sent! Check your inbox"),
+      backgroundColor: Colors.greenAccent,
+    ));
+    Navigator.pop(context);
+  }
 }

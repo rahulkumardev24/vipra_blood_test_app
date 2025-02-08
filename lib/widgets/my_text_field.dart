@@ -22,6 +22,8 @@ class MyTextField extends StatefulWidget {
   Color? suffixIconColor;
   Color? hintColor;
   Color? labelColor;
+  TextInputType textInputType ;
+
 
   MyTextField(
       {super.key,
@@ -41,7 +43,8 @@ class MyTextField extends StatefulWidget {
       this.cursorColor = Colors.white60,
       this.suffixIconColor = Colors.black54,
       this.hintColor = Colors.white54 ,
-        this.labelColor = Colors.white38
+        this.labelColor = Colors.white38 ,
+        this.textInputType = TextInputType.text
       });
 
   @override
@@ -54,6 +57,7 @@ class _MyTextFieldState extends State<MyTextField> {
     return TextField(
       cursorColor: widget.cursorColor,
       controller: widget.textEditingController,
+      keyboardType: widget.textInputType ,
       style: myTextStyle15(
           fontColor: widget.textColor!, fontWeight: widget.textWeight),
       decoration: InputDecoration(
