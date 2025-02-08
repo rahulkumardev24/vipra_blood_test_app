@@ -19,7 +19,9 @@ class MyTextField extends StatefulWidget {
   FontWeight textWeight;
   Color? cursorColor;
   Color sufAndFixIconColor;
-  Color? suffixIconColor ;
+  Color? suffixIconColor;
+  Color? hintColor;
+  Color? labelColor;
 
   MyTextField(
       {super.key,
@@ -36,9 +38,10 @@ class MyTextField extends StatefulWidget {
       this.textWeight = FontWeight.normal,
       this.suffixIconOnPress,
       this.sufAndFixIconColor = Colors.white54,
-      this.cursorColor = Colors.white60 ,
-        this.suffixIconColor = Colors.black54
-
+      this.cursorColor = Colors.white60,
+      this.suffixIconColor = Colors.black54,
+      this.hintColor = Colors.white54 ,
+        this.labelColor = Colors.white38
       });
 
   @override
@@ -57,10 +60,15 @@ class _MyTextFieldState extends State<MyTextField> {
           hintText: widget.hintText ?? null,
           filled: widget.filled ?? false,
           fillColor: widget.filledColor ?? null,
-          hintStyle: myTextStyle18(),
+          hintStyle:
+              myTextStyle18(fontColor: widget.hintColor ?? Colors.white54),
           label: widget.labelText != null ? Text(widget.labelText!) : null,
+          labelStyle: myTextStyle18(fontColor: widget.labelColor ?? Colors.white38),
           prefixIcon: widget.prefixIcon != null
-              ? Icon(widget.prefixIcon ?? null , color: widget.sufAndFixIconColor,)
+              ? Icon(
+                  widget.prefixIcon ?? null,
+                  color: widget.sufAndFixIconColor,
+                )
               : null,
           suffixIcon: IconButton(
               onPressed: widget.suffixIconOnPress,

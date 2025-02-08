@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:vipra_lap/domain/utils/custom_text_style.dart';
+import 'package:vipra_lap/screen/admin/admin_login_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
 import 'package:vipra_lap/screen/start_screen/signup_screen.dart';
 import 'package:vipra_lap/service/auth_service.dart';
@@ -28,14 +29,35 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor.withOpacity(0.7),
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryColor.withOpacity(0),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: MyOutlineButton(
+                  btnText: "Admin",
+                  textWeight: FontWeight.bold,
+                  btnTextColor: Colors.black45,
+                  borderColor: Colors.white54,
+                  btnBackground: AppColors.primaryColor.withOpacity(0.5),
+                  borderRadius: 8,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AdminLoginScreen()));
+                  },
+                )),
+          ),
+        ],
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 16,
-              ),
               Image.asset(
                 "assets/icons/appicon.png",
                 height: 100,

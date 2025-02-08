@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vipra_lap/screen/admin/admin_login_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
 import 'package:vipra_lap/screen/start_screen/login_screen.dart';
+
+import '../screen/admin/admin_dashboard_screen.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -90,12 +93,38 @@ class AuthService {
         await _firestore.collection("user").doc(user.uid).set(
             {"lastSignIn": FieldValue.serverTimestamp()},
             SetOptions(merge: true));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
       }
       return user;
     } catch (error) {
       print("Login failed: $error");
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Plz SignIn first")));
+      return null;
+    }
+  }
+
+  Future<User?> adminLogin(
+      String email, String password, BuildContext context) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (email == "rkrahulroy151617@gmail.com" ||
+          email == "parkash123@gmail.com") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
+        );
+        return userCredential.user;
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("User is not admin")));
+        return null;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Login failed")));
       return null;
     }
   }
@@ -107,4 +136,13 @@ class AuthService {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
+
+  /// admin logout 
+  Future<void> adminLogout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminLoginScreen()));
+    print("Admin logged out");
+  }
+
+
 }

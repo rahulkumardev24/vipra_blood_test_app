@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:vipra_lap/domain/colors.dart';
+import 'package:vipra_lap/screen/admin/admin_dashboard_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
 import 'package:vipra_lap/screen/start_screen/login_screen.dart';
 
@@ -16,6 +17,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  /// Admin emails
+  final List<String> adminEmails = [
+    "rkrahulroy151617@gmail.com",
+    "parkash123@gmail.com",
+  ];
+
   /// Function to check if the user is already logged in
   void _checkLoginState() async {
     try {
@@ -26,13 +33,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
       /// Navigate based on the login state
       if (user != null) {
-        Navigator.pushReplacement(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: const DashboardScreen(),
-          ),
-        );
+        /// Check if the logged-in user is an admin
+        if (adminEmails.contains(user.email)) {
+          Navigator.pushReplacement(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: const AdminDashboardScreen(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: const DashboardScreen(),
+            ),
+          );
+        }
       } else {
         Navigator.pushReplacement(
           context,
@@ -68,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Lottie.asset(
               "assets/lottie/heart beat animation.json",
               errorBuilder: (context, error, stackTrace) {
-                return Icon(
+                return const Icon(
                   Icons.favorite,
                   color: Colors.red,
                   size: 100,
@@ -85,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.2, // Responsive font size
                   fontFamily: 'Third',
-                  shadows: [
+                  shadows: const [
                     Shadow(color: AppColors.primaryColor, blurRadius: 9),
                   ],
                   color: Colors.red,

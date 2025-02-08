@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vipra_lap/firebase_options.dart';
+import 'package:vipra_lap/screen/admin/admin_dashboard_screen.dart';
+import 'package:vipra_lap/screen/admin/admin_login_screen.dart';
 import 'package:vipra_lap/screen/bottom_navigation_screen/test_screen.dart';
 import 'package:vipra_lap/screen/dashboard_screen.dart';
 import 'package:vipra_lap/screen/start_screen/login_screen.dart';
