@@ -7,13 +7,15 @@ class MyNavigationButton extends StatefulWidget {
   Color? btnBackground ;
   Color? iconColor ; 
   IconData btnIcon ;
+  double? iconSize ;
   VoidCallback onPressed ;
   
   MyNavigationButton({super.key , 
-     this.btnBackground , 
+     this.btnBackground = Colors.white,
      this.iconColor  , 
     required this.btnIcon ,
-    required this.onPressed
+    required this.onPressed ,
+    this.iconSize = 18 ,
   });
 
   @override
@@ -26,7 +28,7 @@ class _MyNavigationButtonState extends State<MyNavigationButton> {
     return FloatingActionButton(onPressed: widget.onPressed ,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation:0,
-      backgroundColor: AppColors.primaryLight.withOpacity(0.3),
-      child:Icon(widget.btnIcon),);
+      backgroundColor: widget.btnBackground,
+      child:Icon(widget.btnIcon , size:widget.iconSize,),);
   }
 }
