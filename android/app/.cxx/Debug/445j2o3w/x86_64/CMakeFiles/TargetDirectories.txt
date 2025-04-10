@@ -1,0 +1,2 @@
+C:/FLUTTER PROJECT/FLUTTER COURSE/vipra_lap/android/app/.cxx/Debug/445j2o3w/x86_64/CMakeFiles/edit_cache.dir
+C:/FLUTTER PROJECT/FLUTTER COURSE/vipra_lap/android/app/.cxx/Debug/445j2o3w/x86_64/CMakeFiles/rebuild_cache.dir

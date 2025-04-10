@@ -41,7 +41,7 @@ dependencies:
   curved_labeled_navigation_bar: ^2.0.5
   carousel_slider: ^5.0.0
   font_awesome_flutter: ^10.8.0
-  external_app_launcher: ^4.0.1
+  external_app_launcher: 4.0.3
   url_launcher: ^6.3.1
 #  permission and location
   permission_handler: ^11.3.1
@@ -58,6 +58,7 @@ dependencies:
   file_picker: ^8.3.5
   firebase_storage: ^12.4.2
   image_picker: ^1.1.2
+  animations: ^2.0.11
 
 
 
